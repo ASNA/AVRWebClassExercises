@@ -1,13 +1,27 @@
 ﻿<%@ Page Language="AVR" MasterPageFile="~/Home.master" AutoEventWireup="false" CodeFile="ListCustomers.aspx.vr" Inherits="views_ListCustomers" Title="Untitled Page" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolderHeader" Runat="Server">
+    <link rel="stylesheet" type="text/css" href="../public/css/listcustomers.css" />        
 </asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolderMain" Runat="Server">
     <div>
-        <div class="navigation-buttons">
-            <asp:Button ID="buttonNext" runat="server" Text="Next" CssClass="medium-button" AccessKey="N"/>
+        <div class="actions-container">
+            <div class="navigation-buttons-container float-left">
+                <asp:Button ID="buttonNext" runat="server" Text="Next" CssClass="medium-button" AccessKey="N"/>
+            </div>
+            <asp:Panel ID="panelPositionTo" CssClass="float-left space-left" runat="server" DefaultButton="buttonPositionTo">
+                <asp:TextBox ID="textboxPositionTo" cssclass="medium-width medium-text" runat="server"></asp:TextBox>
+                <asp:Button ID="buttonPositionTo" runat="server" Text="Pos-To" cssclass="medium-button"/>
+            </asp:Panel>
+            <div class="clear-both"></div>
         </div>
         <div>
-            <asp:GridView ID="gridviewCustomer" runat="server" DataKeyNames="Customer_CMCustNo,Customer_CMName" AutoGenerateColumns="False" BackColor="White" BorderColor="#E7E7FF" BorderStyle="None" BorderWidth="1px" CellPadding="3" GridLines="Horizontal" Width="689px">
+            <asp:Label ID="labelPositionTo" runat="server" cssclass="error-input" Visible="false" EnableViewState="false" Text=""></asp:Label>
+        </div>
+        <div>
+            <asp:GridView ID="gridviewCustomer" ClientIDMode="Static" runat="server" DataKeyNames="customer_cmcustno,customer_cmname" AutoGenerateColumns="False"
+                          BackColor="White" BorderColor="#E7E7FF" BorderStyle="None" BorderWidth="1px" CellPadding="3" GridLines="Horizontal">
                 <AlternatingRowStyle BackColor="#F7F7F7" />
                 <Columns>
                     <asp:BoundField DataField="Customer_CMCustNo" HeaderText="Number">

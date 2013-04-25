@@ -1,34 +1,20 @@
-﻿/*
-body 
-{    
-    margin: 0;
-    padding: 0;    
-    font-family: Verdana, Tahoma, Arial, sans-serif;
-    background-color: #B6E9E2;
-    font-size: 1rem;
-}
-*/
-
+﻿
 .ConcurrencyError 
 {
     color: Red;
-    margin-bottom: 16px;
-    margin-left: 24px;
+    margin-bottom: 1.6rem;
+    margin-left: 2.4rem;
     display: block;
 }
 
 /* ----------------------------------------- */
 
-fieldset > label {
-    color: black;
-}
-
 fieldset.main
 {
     margin: 1.5rem 0 0 1.5rem;
     padding: 2rem 0 0 0;
-    width: 500px;
-    font-size: .9rem;
+    width: 50rem;
+    font-size: 1.4rem;
     border: 1px solid #333333;
     background: White;
 }
@@ -54,7 +40,7 @@ fieldset.main li
 fieldset.main ol li label 
 {  
     float: left;
-    width: 10rem;        
+    width: 18rem;        
     margin-right: 1rem;
 }
 
@@ -64,8 +50,8 @@ fieldset.nested
 {
     margin: 0 0 1rem 1rem;
     padding: 0;
-    width: 475px; /* 25 px less than width of fieldset.main. */
-    font-size: .8rem;
+    width: 47.5rem; /* 25 px less than width of fieldset.main. */
+    font-size: 1.4rem;
     border: 1px solid gray;
     background: #DFDFDF;
 }
@@ -74,11 +60,10 @@ fieldset.nested legend
 {
     margin-left: 1rem;
     font-weight: 800;
-    font-size: .9rem;
+    font-size: 1.1rem;
     color: #333333;
-    background-color: #C0C0C0; /* padding: 0 1rem 0 1rem;*/
+    background-color: #C0C0C0;
     padding: 2px 1rem 2px 1rem; 
-    /*padding: 0 1rem 0 1rem;*/
     border: 1px solid #999999;
 }
 
@@ -104,7 +89,7 @@ fieldset.nested li
 fieldset.nested ol li label 
 {  
     float: left;
-    width: 10rem;        
+    width: 14rem;        
     margin-right: 1rem;
 }
 
@@ -120,22 +105,22 @@ input.actionButton
 div.buttonsContainer
 {
     float: right;
-    margin: 0 1rem 1rem 0;
+    margin: 0 1.5rem 1rem 0;
 }
 
 /* ----------------------------------------- */
 
-.smallWidth
+.small-width
 {
     width: 5rem;
 }
 
-.mediumWidth
+.medium-width
 {
     width: 10rem;
 }
 
-.largeWidth
+.large-width
 {
     width: 20rem;
 }
@@ -143,7 +128,6 @@ div.buttonsContainer
 .errorValidator
 {
     display:block;
-
 }
 
 .panelError
@@ -156,13 +140,16 @@ div.buttonsContainer
 
 .errorMessage 
 {
-    margin-left: 128px;
-    display: inline-block;
+    margin-left: 1rem;
+    color: red;
+    background-color: white;
+    padding-top: .3rem;
+    padding-bottom: .3rem;
 }
 
 .errorMessageServer
 {
-    margin-left: 128px;
+    margin-left: 12.8rem;
     display: inline-block;
     color: #990099;
 }

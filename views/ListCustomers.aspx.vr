@@ -33,6 +33,7 @@ BegClass views_ListCustomers Partial(*Yes) Access(*Public) Extends(System.Web.UI
         ConnectServer()
 
         If (NOT Page.IsPostBack)
+            CheckForStartingPosition()
             LoadGrid()
             //
             // Called the first time that the page is loaded.
@@ -82,9 +83,12 @@ BegClass views_ListCustomers Partial(*Yes) Access(*Public) Extends(System.Web.UI
 
         DclFld LastRowIndex Type(*Integer4)
 
+        // Fetch key values from last row.
         LastRowIndex = gridviewCustomer.Rows.Count - 1
-        Customer_CMName = gridviewCustomer.DataKeys[LastRowIndex]["Customer_CMName"].ToString()
-        Customer_CMCustNo = gridviewCustomer.DataKeys[LastRowIndex]["Customer_CMCustNo"].ToString()
+        // Be careful! The DataKeys key names are case-sensitive!
+        Customer_CMName = gridviewCustomer.DataKeys[LastRowIndex]["customer_cmname"].ToString()
+        Customer_CMCustNo = gridviewCustomer.DataKeys[LastRowIndex]["customer_cmcustno"].ToString()
+        // Position file to that row.
         SetLL CustomerByName Key(Customer_CMName, Customer_CMCustNo)
         LoadGrid()		
 	EndSr
@@ -93,10 +97,48 @@ BegClass views_ListCustomers Partial(*Yes) Access(*Public) Extends(System.Web.UI
 		DclSrParm sender Type(*Object)
 		DclSrParm e Type(System.EventArgs)
 
-        DclFld x Type(*Integer4)
-        x = gridviewCustomer.SelectedIndex
+        DclFld SelectedRow Type( *Integer4 ) 
+        
+        SelectedRow = gridviewCustomer.SelectedIndex        
+        
+        Session["customernumber"] = gridviewCustomer.DataKeys[ SelectedRow ]["customer_cmcustno"]
 
-        Response.Redirect("updatecustomer.aspx")		
+        // Get customer number and name from the top (zeroth) row.
+        Session["firstrownumber"] = gridviewCustomer.DataKeys[0]["customer_cmcustno"]
+        Session["firstrowname"  ] = gridviewCustomer.DataKeys[0]["customer_cmname"  ]
+        
+        Response.Redirect("updatecustomer.aspx")	
 	EndSr
+
+	BegSr buttonPositionTo_Click Access(*Private) Event(*This.buttonPositionTo.Click)
+		DclSrParm sender Type(*Object)
+		DclSrParm e Type(System.EventArgs)
+
+        Customer_CMName = textboxPositionTo.Text
+        SetLL CustomerByName Key( Customer_CMName ) 
+        
+        If ( CustomerByName.IsFound )
+            LoadGrid()		
+        Else
+            textboxPositionTo.Focus()
+            labelPositionTo.Visible = *True 
+            labelPositionTo.Text = "Position-to failed for: " + Customer_CMName
+        EndIf
+        
+        textboxPositionTo.Text = String.Empty		
+	EndSr
+
+    BegSr CheckForStartingPosition
+        If ( Session[ "number" ] <> *Nothing ) AND +     
+           ( Session[ "name"   ] <> *Nothing ) 
+            Customer_CMCustNo = Session[ "number" ].ToString() 
+            Customer_CMName   = Session[ "name" ].ToString() 
+               
+            SetLL CustomerByName Key( Customer_CMName, Customer_CMCustNo ) 
+               
+            Session.Remove( "number" )
+            Session.Remove( "name"  )
+        EndIf             
+    EndSr                        
 
 EndClass

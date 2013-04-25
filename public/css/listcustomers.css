@@ -1,0 +1,16 @@
+/*
+Rules specific to ListCustomers.css
+*/
+
+.navigation-buttons-container {
+    margin-bottom: .8rem;
+}
+
+#gridviewCustomer {
+    width: 70rem;
+    font-size: 1.6rem;
+}
+
+.actions-container {
+    height: 4rem;
+}

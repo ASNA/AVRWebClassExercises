@@ -5,18 +5,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head runat="server">
     <title>Untitled Page</title>
-    <link rel="stylesheet" type="text/css" href="public/css/masterpage_screen.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="public/css/home.master.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="public/css/sidebar-nav.css" />    
-    <link rel="stylesheet" type="text/css" href="public/css/main.css" />        
 	<asp:contentplaceholder id="ContentPlaceHolderHeader" runat="server"></asp:contentplaceholder> 
 </head>
 
 <body>
     <form id="form1" runat="server">
     
-    <div id="headerlogo"></div>
     
     <div id="header">
+      <div id="headerlogo"></div>
       <div class="headertext">
           Work with customers
       </div>
@@ -72,7 +71,7 @@
         </div>
     </div>
     <div id="footer">
-        <asp:Label ID="lblCopyright" runat="server" Text="Label" CssClass="footer-text"></asp:Label>
+        <asp:Label ID="lblCopyright" runat="server" Text="Label" CssClass="footer-text">Footer text here</asp:Label>
     </div>    
     </form>
 	<asp:contentplaceholder id="ContentPlaceHolderPageBottom" runat="server"></asp:contentplaceholder> 

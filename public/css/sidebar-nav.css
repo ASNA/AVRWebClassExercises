@@ -1,13 +1,11 @@
-/* reset */
 
 .nav {
-    /* uncomment if additional margin is needed */
     margin-top: 0.7em;
     margin-left: 0.7em;
     min-width: 10em;
     font-family: Verdana, Geneva, sans-serif;
     float: left;
-    font-size: 75%;
+    font-size: 1.4rem;
 }
 
 .nav ul {
@@ -17,13 +15,13 @@
 }
 
 .nav li {
-    margin: 0 0 0.3em 0;
+    margin: 0 0 0.3rem 0;
     line-height: 1.5;
 }
 
 .nav li a {
     display: block;
-    padding: 0.3em 0.8em;
+    padding: 0.3em 0.8rem;
     text-decoration: none;
     border: 1px solid #bbb;
     background-color: #ddd;
@@ -39,9 +37,9 @@
 }
 
 .nav.rounded a {
-    -webkit-border-radius: 0.4em;
-    -moz-border-radius: 0.4em;
-    border-radius: 0.4em;
+    -webkit-border-radius: 0.4rem;
+    -moz-border-radius: 0.4rem;
+    border-radius: 0.4rem;
 }
 
 .nav.shadows a {
@@ -86,7 +84,7 @@
 
 .arrow-up {
     display: inline-block;
-    margin-top: 0.6em;
+    margin-top: 0.6rem;
     width: 0;
     height: 0;
     border-left: 0.4em solid transparent;
@@ -96,7 +94,7 @@
 
 .arrow-down {
     display: inline-block;
-    margin-top: 0.6em;
+    margin-top: 0.6rem;
     width: 0;
     height: 0;
     border-left: 0.4em solid transparent;
@@ -106,17 +104,17 @@
 
 .arrow-right {
     display: inline-block;
-    margin-top: 0.4em;
+    margin-top: 0.4rem;
     width: 0;
     height: 0;
-    border-top: 0.4em solid transparent;
-    border-bottom: 0.4em solid transparent;
-    border-left: 0.4em solid black;
+    border-top: 0.4rem solid transparent;
+    border-bottom: 0.4rem solid transparent;
+    border-left: 0.4rem solid black;
 }
 
 .arrow-left {
     display: inline-block;
-    margin-top: 0.4em;
+    margin-top: 0.4rem;
     width: 0;
     height: 0;
     border-top: 0.4em solid transparent;
@@ -126,12 +124,12 @@
 
 .pull-right {
     float: right;
-    margin-left: 0.8em;
+    margin-left: 0.8rem;
 }
 
 .pull-left {
     float: left;
-    margin-right: 0.8em;
+    margin-right: 0.8rem;
 }
 
 .text-left {

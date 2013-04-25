@@ -8,31 +8,165 @@ Using System.Web.UI
 Using System.Web.UI.WebControls
 Using System.Web.UI.WebControls.WebParts
 Using System.Web.UI.HtmlControls
+Using System.Text.RegularExpressions
 
 BegClass views_UpdateCustomer Partial(*Yes) Access(*Public) Extends(System.Web.UI.Page)
+
+    DclDB DGServer DBName( "*Public/DG Net Local" )
+    
+    DclDiskFile CustomerByNumber +
+        Type( *Update ) +
+        Org( *Indexed ) + 
+        Prefix( Customer_ ) + 
+        File( "Examples/CMastNewL1" ) +
+        DB( DGServer ) +
+        ImpOpen( *No ) + 
+        AddRec( *Yes ) 
 
     BegSr Page_Load Access(*Private) Event(*This.Load)
         DclSrParm sender Type(*Object)
         DclSrParm e Type(System.EventArgs)
-
+               
         If (NOT Page.IsPostBack)
-            //
-            // Called the first time that the page is loaded.
-            //
+            textboxCMCustNo.Text = Session["customernumber"].ToString()
+            ReadRecord()
         Else
-            //
-            // Called subsequent times that the page is displayed.
-            //
+
         EndIf
     EndSr
 
-    BegSr Page_Unload Access(*Private) Event(*This.Unload)
-        DclSrParm sender Type(*Object)
-        DclSrParm e Type(System.EventArgs)
-
-        //
-        // Called when the page is unloaded.
-        //
+    BegSr ConnectServer
+        Connect DGServer
+        Open CustomerByNumber
     EndSr
 
+    BegSr DisconnectServer
+        Disconnect DGServer
+        Close *All
+    EndSr
+
+    BegFunc ReadRecord Type( *Integer4 )
+        DclFld Result Type( *Integer4 ) Inz( -1 )
+    
+        // Connect DB and open files.
+        ConnectServer()
+    
+        Customer_CMCustNo = textboxCMCustNo.Text 
+    
+        Chain CustomerByNumber Key(Customer_CMCustNo) Access( *NoLock )  
+            
+        If ( CustomerByNumber.IsFound )
+            PopulateUIFromRecord()
+        Else
+            // Error handling code here.
+        EndIf
+        
+        // Close files and disconnect.
+        DisconnectServer()
+
+        // Assume the best for now!
+        LeaveSr Result
+    EndFunc 
+    
+    BegSr PopulateUIFromRecord
+        Page.Title = Customer_CMName 
+    
+        // Populate the user interface from the record format.
+        textboxCMName.Text     = Customer_CMName.Trim()
+        textboxCMAddr1.Text    = Customer_CMAddr1.Trim()
+        textboxCMCity.Text     = Customer_CMCity.Trim() 
+        textboxCMState.Text    = Customer_CMState.Trim()
+        textboxCMActive.Text   = Customer_CMActive
+        textboxCMPhone.Text    = Customer_CMPhone.Trim()
+        textboxCMPostCode.Text = Customer_CMPostCode.Trim()
+        textboxCMCntry.Text    = Customer_CMCntry.Trim()
+        textboxCMFax.Text      = Customer_CMFax.ToString("(000) 000-0000") 
+        
+        // MS info on numeric formatting
+        // http://msdn.microsoft.com/en-us/library/0c899ak8.aspx
+        // MS Info on date formatting
+        // http://msdn.microsoft.com/en-us/library/8kb3ddd4.aspx
+        // 3rd party string formatting cheat sheet.
+        // http://john-sheehan.com/blog/net-format-string-cheat-sheet/        
+    EndSr   
+
+    BegFunc UpdateRecord Type( *Integer4 )
+        DclFld Result Type( *Integer4 ) 
+        
+        Result = -1
+        
+        // Connect DB and open files.
+        ConnectServer()
+
+        Customer_CMCustNo = textboxCMCustNo.Text 
+
+        // Read record for update.
+        Chain CustomerByNumber Key( Customer_CMCustNo ) 
+        If ( CustomerByNumber.IsError ) 
+            Result = 1
+        Else 
+            If ( CustomerByNumber.IsFound )
+                PopulateRecordFromUI()
+                Update CustomerByNumber                
+            Else
+                Result = 2
+            EndIf
+        EndIf    
+
+        // Close files and disconnect.
+        DisconnectServer()
+
+        LeaveSr Result
+    EndFunc  
+    
+    BegSr PopulateRecordFromUI
+        // Populate the record format from the user interface.
+        Customer_CMName      = textboxCMName.Text        
+        Customer_CMAddr1     = textboxCMAddr1.Text
+        Customer_CMActive    = textboxCMActive.Text
+        Customer_CMCity      = textboxCMCity.Text
+        Customer_CMState     = textboxCMState.Text 
+        Customer_CMPhone     = textboxCMPhone.Text
+        Customer_CMPostCode  = textboxCMPostCode.Text
+        Customer_CMCntry     = textBoxCMCntry.Text 
+        
+        DclConst NON_DIGITS Value( "\D" ) 
+        
+        // A great .NET regex cheat sheet.
+        // http://regexlib.com/cheatsheet.aspx        
+        // Needs this using statement:    
+        // Using System.Text.RegularExpressions
+        Customer_CMFax = "0" + Regex.Replace( textboxCMFax.Text, NON_DIGITS, String.Empty ) 
+    EndSr        
+
+
+	BegSr buttonOK_Click Access(*Private) Event(*This.buttonOK.Click)
+		DclSrParm sender Type(*Object)
+		DclSrParm e Type(System.EventArgs)
+
+        DclFld Result Type( *Integer4 ) Inz(-1)
+        
+        If ( Page.IsValid ) 
+            Result = UpdateRecord()
+            If ( Result < 0 )
+                Session["number"] = Customer_CMCustNo
+                Session["name"  ] = Customer_CMName            
+                Response.Redirect("ListCustomers.aspx") 		
+                buttonOK.Enabled = *True
+                buttonRefresh.Enabled = *False
+            Else
+                buttonOK.Enabled = *False                 
+                buttonRefresh.Enabled = *True 
+            EndIf
+        EndIf		
+	EndSr
+
+	BegSr buttonCancel_Click Access(*Private) Event(*This.buttonCancel.Click)
+		DclSrParm sender Type(*Object)
+		DclSrParm e Type(System.EventArgs)
+       
+        Session["number"] = Session[ "firstrownumber" ] 
+        Session["name"  ] = Session[ "firstrowname"   ]       
+        Response.Redirect("ListCustomers.aspx") 		
+	EndSr
 EndClass

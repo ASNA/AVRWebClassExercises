@@ -1,0 +1,150 @@
+ html {
+    font-size: 62.5%;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	border: none;
+	color: black;
+	background: Silver;	
+}
+
+.hidden {			/* Used for content that should be displayed */
+    				/* by non-stylesheet-aware browsers          */
+   display:     none !important;
+}
+
+div {
+	/* border: 1px solid black; */
+}
+
+div#header {
+   background: #c5e7fd;	
+   height: 7.2rem;
+}
+
+div#headerlogo {
+    float:left;
+    background: url(../../public/images/asna.png) top left no-repeat;
+    width: 18rem;
+    height: 5.2rem;
+    margin-top: 1rem;
+    margin-left: 1rem;
+}
+
+div.headertext {	
+	font-size: 3rem;
+	font-weight:800;
+	float: left;
+    padding-top: 2.5rem; 
+    width: 40rem;
+}
+
+div#header a:link,
+div#header a:visited {
+   font-size:       1.5rem;
+   font-weight:     bold;
+   text-decoration: none;
+   color:           black;
+   background:      transparent;
+}
+
+div#rightheader {
+    float: right;
+	padding-right: .8rem;
+    background: transparent;
+}
+
+div#mainnavbar {
+	clear: both;
+	background-color: #778899;		
+	border-top: 2px solid navy;
+	border-bottom: 2px solid navy;
+    padding-left: 1.2rem;
+    padding-bottom: .3rem;
+}
+
+div#mainnavbar  a:link,
+div#mainnavbar  a:visited {
+   font-size:       1.6rem;
+   font-weight:     bold;
+   text-decoration: none;
+   color:           white;
+   background:      transparent;
+}
+
+div.divlogin {
+    border-bottom: .1rem solid black;
+}
+
+div#applicationcontent {
+	background: White;
+    border-left: 1px solid black;
+}
+
+div#content-right {
+    padding: 1.2rem;
+    margin-left: 16rem;
+}
+
+div#footer {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    background:      #c5e7fd;	
+    margin-top: .6rem;
+    padding-top: .2rem;
+    padding-bottom: .2rem;    
+    padding-left: 1.2rem;
+}
+
+.main-placeholder {
+    background-color: #CCCCCC;
+    color: black;
+}
+
+.small-text {
+    font-size: 1.4rem;
+}     
+
+.medium-text {
+    font-size: 2.0rem;
+}
+
+.large-text {
+    font-size: 2.8rem;
+}
+
+.footer-text {
+    font-size: 1.5rem;
+}
+
+.error-input {
+    background-color: white;
+    color: red;
+    font-size: 1.8rem;
+    padding: .2rem;
+}
+
+.medium-button {
+    font-size: 1.8rem;
+    width: 8rem;
+    height: 3rem;
+}
+
+.float-left {
+    float: left;
+}
+
+.clear-both {
+    clear: both;
+}
+
+.show-border {
+    border: 2px red solid;
+}
+
+.space-left {
+    margin-left: 2rem;
+}

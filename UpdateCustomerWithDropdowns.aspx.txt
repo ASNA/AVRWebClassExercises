@@ -1,4 +1,10 @@
-﻿<%@ Page Language="AVR" MasterPageFile="~/Home.master" AutoEventWireup="false" CodeFile="UpdateCustomer.aspx.vr" Inherits="views_UpdateCustomer" Title="Untitled Page" %>
+﻿Frank Turner
+The National 
+Atlas Guard (or something like that)
+The Mowglis
+Jim James
+
+<%@ Page Language="AVR" MasterPageFile="~/Home.master" AutoEventWireup="false" CodeFile="UpdateCustomer.aspx.vr" Inherits="views_UpdateCustomer" Title="Untitled Page" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolderHeader" Runat="Server">
 
     <link href="../public/css/input-form.css" rel="stylesheet" type="text/css" ></link>
@@ -45,8 +51,9 @@
                             CssClass="errorMessage" Display="Dynamic" SetFocusOnError="True"></asp:RequiredFieldValidator>
                     </li>
                     <li>
-                        <label for="textboxCMActive">Status</label>
-                        <asp:TextBox ID="textboxCMActive" cssclass="medium-width" runat="server"></asp:TextBox>
+                        <label for="dropdownlistCMActive">Status</label>
+                        <asp:DropDownList ID="dropdownlistCMActive" runat="server">
+                        </asp:DropDownList>
                     </li>
                 </ol>
             </fieldset>
@@ -67,7 +74,8 @@
                     </li>
                     <li>
                         <label for="textboxRegion">State</label>
-                        <asp:TextBox ID="textboxCMState" cssclass="medium-width" runat="server"></asp:TextBox>
+                        <asp:DropDownList ID="dropdownlistCMState" runat="server">
+                        </asp:DropDownList>
                     </li>
                     <li>
                         <label for="textboxPostalCode">Postal code</label>
