@@ -6,7 +6,9 @@
 		DclSrParm sender Type(*Object)
 		DclSrParm e Type(EventArgs)
 
-		// Code that runs on application startup
+        DclFld DBName Type(*String)
+        DBName = ConfigurationSettings.AppSettings("DBName")
+        Application["DBName"] = DBName 
 	EndSr
 
 	BegSr Application_End

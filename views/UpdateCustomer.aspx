@@ -45,8 +45,8 @@
                             CssClass="errorMessage" Display="Dynamic" SetFocusOnError="True"></asp:RequiredFieldValidator>
                     </li>
                     <li>
-                        <label for="textboxCMActive">Status</label>
-                        <asp:TextBox ID="textboxCMActive" cssclass="medium-width" runat="server"></asp:TextBox>
+                        <label for="dropdownlistCMActive">Status</label>
+                        <asp:DropDownList ID="dropdownlistCMActive" runat="server"></asp:DropDownList>
                     </li>
                 </ol>
             </fieldset>
@@ -66,8 +66,8 @@
                         <asp:TextBox ID="textboxCMCity" cssclass="large-width" runat="server"></asp:TextBox>
                     </li>
                     <li>
-                        <label for="textboxRegion">State</label>
-                        <asp:TextBox ID="textboxCMState" cssclass="medium-width" runat="server"></asp:TextBox>
+                        <label for="dropdownlistCMState">State</label>
+                        <asp:DropDownList ID="dropdownlistCMState" runat="server"></asp:DropDownList>
                     </li>
                     <li>
                         <label for="textboxPostalCode">Postal code</label>

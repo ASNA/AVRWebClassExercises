@@ -12,7 +12,6 @@
                 <asp:Button ID="buttonNext" runat="server" Text="Next" CssClass="medium-button" AccessKey="N"/>
                 <asp:Button ID="buttonPrevious" runat="server" Text="Prev" CssClass="medium-button" AccessKey="P"/>
                 <asp:Button ID="buttonLast" runat="server" Text="Last" CssClass="medium-button" AccessKey="L"/>
-
             </div>
             <asp:Panel ID="panelPositionTo" CssClass="float-left space-left" runat="server" DefaultButton="buttonPositionTo">
                 <asp:TextBox ID="textboxPositionTo" cssclass="medium-width medium-text" runat="server"></asp:TextBox>
@@ -25,7 +24,7 @@
         </div>
         <div>
             <asp:GridView ID="gridviewCustomer" ClientIDMode="Static" runat="server" DataKeyNames="customer_cmcustno,customer_cmname" AutoGenerateColumns="False"
-                          BackColor="White" BorderColor="#E7E7FF" BorderStyle="None" BorderWidth="1px" CellPadding="3" GridLines="Horizontal">
+                          BackColor="White" BorderColor="#E7E7FF" BorderStyle="None" BorderWidth="1px" CellPadding="3" GridLines="Horizontal" PageSize="12">
                 <AlternatingRowStyle BackColor="#F7F7F7" />
                 <Columns>
                     <asp:BoundField DataField="Customer_CMCustNo" HeaderText="Number">

@@ -23,19 +23,27 @@ BegClass views_UpdateCustomer Partial(*Yes) Access(*Public) Extends(System.Web.U
         ImpOpen(*No) + 
         AddRec(*Yes) 
 
+    BegEnum IOStatus 
+        DclEnumFld OK                   
+        DclEnumFld UndefinedError       
+        DclEnumFLd ConcurrencyViolation
+        DclEnumFld RecordNotFound 
+    EndEnum 
+
     BegSr Page_Load Access(*Private) Event(*This.Load)
         DclSrParm sender Type(*Object)
         DclSrParm e Type(System.EventArgs)
                
         If (NOT Page.IsPostBack)
             textboxCMCustNo.Text = Session["customernumber"].ToString()
+            PopulateStateDropDown()
+            PopulateStatusDropDown()
             ReadRecord()
-        Else
-
         EndIf
     EndSr
 
     BegSr ConnectServer
+        DGServer.DBName = Application["DBName"].ToString()
         Connect DGServer
         Open CustomerByNumber
     EndSr
@@ -46,25 +54,27 @@ BegClass views_UpdateCustomer Partial(*Yes) Access(*Public) Extends(System.Web.U
     EndSr
 
     BegFunc ReadRecord Type(*Integer4)
-        DclFld Result Type(*Integer4) Inz(-1)
+        DclFld Result Type(*Integer4) 
+
+        Result = IOStatus.OK
     
-        // Connect DB and open files.
         ConnectServer()
     
         Customer_CMCustNo = textboxCMCustNo.Text 
     
         Chain CustomerByNumber Key(Customer_CMCustNo) Access(*NoLock)  
-            
-        If (CustomerByNumber.IsFound)
-            PopulateUIFromRecord()
-        Else
-            // Error handling code here.
-        EndIf
-        
-        // Close files and disconnect.
+        If (CustomerByNumber.IsError)
+            Result = IOStatus.UndefinedError
+        Else             
+            If (CustomerByNumber.IsFound)
+                PopulateUIFromRecord()
+            Else
+                Result = IOStatus.RecordNotFound
+            EndIf
+        EndIf 
+
         DisconnectServer()
 
-        // Assume the best for now!
         LeaveSr Result
     EndFunc 
     
@@ -75,13 +85,14 @@ BegClass views_UpdateCustomer Partial(*Yes) Access(*Public) Extends(System.Web.U
         textboxCMName.Text     = Customer_CMName.Trim()
         textboxCMAddr1.Text    = Customer_CMAddr1.Trim()
         textboxCMCity.Text     = Customer_CMCity.Trim() 
-        textboxCMState.Text    = Customer_CMState.Trim()
-        textboxCMActive.Text   = Customer_CMActive
         textboxCMPhone.Text    = Customer_CMPhone.Trim()
         textboxCMPostCode.Text = Customer_CMPostCode.Trim()
         textboxCMCntry.Text    = Customer_CMCntry.Trim()
         textboxCMFax.Text      = Customer_CMFax.ToString("(000) 000-0000") 
         
+        dropdownlistCMState.SelectedValue = Customer_CMState   
+        dropdownlistCMActive.SelectedValue = Customer_CMActive
+
         // MS info on numeric formatting
         // http://msdn.microsoft.com/en-us/library/0c899ak8.aspx
         // MS Info on date formatting
@@ -93,9 +104,8 @@ BegClass views_UpdateCustomer Partial(*Yes) Access(*Public) Extends(System.Web.U
     BegFunc UpdateRecord Type(*Integer4)
         DclFld Result Type(*Integer4) 
         
-        Result = -1
+        Result = IOStatus.OK
         
-        // Connect DB and open files.
         ConnectServer()
 
         Customer_CMCustNo = textboxCMCustNo.Text 
@@ -103,17 +113,16 @@ BegClass views_UpdateCustomer Partial(*Yes) Access(*Public) Extends(System.Web.U
         // Read record for update.
         Chain CustomerByNumber Key(Customer_CMCustNo) 
         If (CustomerByNumber.IsError) 
-            Result = 1
+            Result = IOStatus.UndefinedError
         Else 
             If (CustomerByNumber.IsFound)
                 PopulateRecordFromUI()
                 Update CustomerByNumber                
             Else
-                Result = 2
+                Result = IOStatus.RecordNotFound
             EndIf
         EndIf    
 
-        // Close files and disconnect.
         DisconnectServer()
 
         LeaveSr Result
@@ -123,12 +132,13 @@ BegClass views_UpdateCustomer Partial(*Yes) Access(*Public) Extends(System.Web.U
         // Populate the record format from the user interface.
         Customer_CMName      = textboxCMName.Text        
         Customer_CMAddr1     = textboxCMAddr1.Text
-        Customer_CMActive    = textboxCMActive.Text
         Customer_CMCity      = textboxCMCity.Text
-        Customer_CMState     = textboxCMState.Text 
         Customer_CMPhone     = textboxCMPhone.Text
         Customer_CMPostCode  = textboxCMPostCode.Text
         Customer_CMCntry     = textBoxCMCntry.Text 
+
+        Customer_CMState = dropdownlistCMState.SelectedValue
+        Customer_CMActive = dropdownlistCMActive.SelectedValue
         
         DclConst NON_DIGITS Value("\D") 
         
@@ -148,7 +158,7 @@ BegClass views_UpdateCustomer Partial(*Yes) Access(*Public) Extends(System.Web.U
         
         If (Page.IsValid) 
             Result = UpdateRecord()
-            If (Result < 0)
+            If (Result = IOStatus.OK)
                 Session["number"] = Customer_CMCustNo
                 Session["name"  ] = Customer_CMName            
                 RemoveSessionVariables()
@@ -183,6 +193,25 @@ BegClass views_UpdateCustomer Partial(*Yes) Access(*Public) Extends(System.Web.U
         If ( textboxCMAddr1.Text.Trim().ToLower().StartsWith("po"))
             args.IsValid = *False
         EndIf
-		
 	EndSr
+
+    BegSr PopulateStatusDropDown
+        DclFld li Type( ListItem ) 
+        
+        li = *New ListItem( "Active", "1" ) 
+        dropdownlistCMActive.Items.Add( li ) 
+
+        li = *New ListItem( "Inactive","0" )
+        dropdownlistCMActive.Items.Add( li ) 
+    EndSr
+
+    BegSr PopulateStateDropDown
+        DclFld sl Type( USStatesList ) New( DGServer ) 
+
+        dropdownlistCMState.DataTextField = "Text"
+        dropdownlistCMState.DataValueField = "Value"
+        dropdownlistCMState.DataSource = sl.GetList()
+        dropdownlistCMState.DataBind()
+    EndSr 
+
 EndClass

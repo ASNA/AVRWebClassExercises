@@ -57,7 +57,7 @@ BegClass views_ListCustomers Partial(*Yes) Access(*Public) Extends(System.Web.UI
     BegSr LoadGrid 
         DclFld Row Type(*Integer4)
 
-        For (Row = 1) To(12)
+        For (Row = 1) To(gridviewCustomer.PageSize)
             Read CustomerByName
             If (CustomerByName.IsEof)
                 Leave
@@ -67,9 +67,16 @@ BegClass views_ListCustomers Partial(*Yes) Access(*Public) Extends(System.Web.UI
 
         gridviewCustomer.DataSource = CustomerByNameMF2.DataSet.Tables[0]
         gridviewCustomer.DataBind()
+
+        buttonFirst.Enabled = NOT IsTopRowBOF()
+        buttonPrevious.Enabled = buttonFirst.Enabled 
+        
+        buttonNext.Enabled = NOT IsBottomRowEOF()
+        buttonLast.Enabled = buttonNext.Enabled         
     EndSr
 
     BegSr ConnectServer
+        DGServer.DBName = Application["DBName"].ToString()
         Connect DGServer
         Open CustomerByName
     EndSr
@@ -120,6 +127,31 @@ BegClass views_ListCustomers Partial(*Yes) Access(*Public) Extends(System.Web.UI
         LoadGrid()		
 	EndSr
 
+	BegSr buttonPrevious_Click Access(*Private) Event(*This.buttonPrevious.Click)
+		DclSrParm sender Type(*Object)
+		DclSrParm e Type(System.EventArgs)
+
+        // Get customer number and name from the top (zeroth) row.
+        Customer_CMName   = gridviewCustomer.DataKeys[0]["customer_cmname"].ToString()
+        Customer_CMCustNo = gridviewCustomer.DataKeys[0]["customer_cmcustno"].ToString()
+        
+        SetLL CustomerByName Key( Customer_CMName, Customer_CMCustNo ) 
+
+        MoveFilePointerBackwards() 
+
+        ExSr LoadGrid
+	EndSr
+
+	BegSr buttonLast_Click Access(*Private) Event(*This.buttonLast.Click)
+		DclSrParm sender Type(*Object)
+		DclSrParm e Type(System.EventArgs)
+
+        SetLL CustomerByName Key( *End ) 
+        MoveFilePointerBackwards()
+        ReadP CustomerByName 
+        LoadGrid()
+	EndSr
+
 	BegSr buttonPositionTo_Click Access(*Private) Event(*This.buttonPositionTo.Click)
 		DclSrParm sender Type(*Object)
 		DclSrParm e Type(System.EventArgs)
@@ -150,5 +182,52 @@ BegClass views_ListCustomers Partial(*Yes) Access(*Public) Extends(System.Web.UI
             Session.Remove( "name"  )
         EndIf             
     EndSr                        
+
+    BegSr MoveFilePointerBackwards
+        //
+        // Move file pointer backwards x records.
+        //
+        Do FromVal( 1 ) ToVal( gridviewCustomer.PageSize ) 
+            ReadP CustomerByName             
+            If ( CustomerByName.IsEof ) 
+                Leave              
+            EndIf 
+        EndDo     
+    EndSr    
+
+    BegFunc IsBottomRowEOF Type( *Boolean ) 
+        //
+        // Check to see if there are records "below" the last row.
+        // Return *True if you are EOF.        
+        //
+        DclFld LastRow Type( *Integer4 ) 
+
+        LastRow = gridviewCustomer.Rows.Count  
+        
+        Customer_CMCustNo = gridviewCustomer.DataKeys[LastRow-1]["customer_cmcustno"].ToString() 
+        Customer_CMName   = gridviewCustomer.DataKeys[LastRow-1]["customer_cmname"].ToString() 
+        
+        SetGT CustomerByName Key( Customer_CMName, Customer_CMCustNo )         
+        // LeaveSr NOT CustomerByName.IsFound
+        Read CustomerByName
+        
+        LeaveSr CustomerByName.IsEof 
+    EndFunc 
+
+    BegFunc IsTopRowBOF Type( *Boolean ) 
+        //
+        // Check to see if there are records "above" the first row.
+        // Return *True if you are at BOF.
+        //        
+        Customer_CMCustNo = gridviewCustomer.DataKeys[0]["customer_cmcustno"].ToString() 
+        Customer_CMName   = gridviewCustomer.DataKeys[0]["customer_cmname"].ToString() 
+    
+        SetLL CustomerByName Key( Customer_CMName, Customer_CMCustNo ) 
+        ReadP CustomerByName  
+        
+        LeaveSr CustomerByName.IsEof
+    EndFunc  
+
+
 
 EndClass

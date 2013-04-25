@@ -1,0 +1,59 @@
+﻿Using System
+Using System.Text
+Using System.Web.UI.WebControls
+
+BegClass USStatesList Access(*Public) 
+    //
+    // The database specified here is for compile-time purposes only.
+    // It is overridden in this class's constructor.
+    //    
+    DclDB pgmDB DBName("*Public/DG NET Local")  
+    
+    DclDiskFile  States +
+          Type(*Input ) +
+          Org(*Indexed) +
+          Prefix(States_) +
+          File("Devo/States") +
+          DB(pgmDB) +
+          ImpOpen(*No)  
+
+    BegConstructor Access(*Public)
+        DclSrParm ParentDB Type(ASNA.VisualRPG.Runtime.Database) 
+
+        // Override the locally-declared DB object.
+        *This.pgmDb = ParentDB
+    EndConstructor
+
+    BegFunc GetList Type(ListItem) Rank(1) Access(*Public) 
+        DclArray Result Type(ListItem) Rank(1) 
+        DclFld   j      Type(*Integer4) Inz(0)
+
+        OpenData()
+
+        // Allocate the Result array to the correct number of elements.
+        Result = *New ListItem[States.RecCount] 
+
+        Read States
+        DoWhile (NOT States.IsEof)
+            Result[j] = *New ListItem(States_State.Trim(), States_Abbrev)
+            j += 1
+            Read States
+        EndDo 
+
+        CloseData()
+
+        LeaveSr Result 
+    EndFunc          
+
+    BegSr OpenData 
+        If (NOT pgmDB.IsOpen) 
+            Connect pgmDB 
+        EndIf     
+        Open    States
+    EndSr
+
+    BegSr CloseData
+        Close *All
+    EndSr          
+
+EndClass
