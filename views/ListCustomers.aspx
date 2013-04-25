@@ -8,8 +8,11 @@
     <div>
         <div class="actions-container">
             <div class="navigation-buttons-container float-left">
-                <asp:Button ID="buttonFirst" runat="server" Text="First" CssClass="medium-button" AccessKey="N"/>
+                <asp:Button ID="buttonFirst" runat="server" Text="First" CssClass="medium-button" AccessKey="F"/>
                 <asp:Button ID="buttonNext" runat="server" Text="Next" CssClass="medium-button" AccessKey="N"/>
+                <asp:Button ID="buttonPrevious" runat="server" Text="Prev" CssClass="medium-button" AccessKey="P"/>
+                <asp:Button ID="buttonLast" runat="server" Text="Last" CssClass="medium-button" AccessKey="L"/>
+
             </div>
             <asp:Panel ID="panelPositionTo" CssClass="float-left space-left" runat="server" DefaultButton="buttonPositionTo">
                 <asp:TextBox ID="textboxPositionTo" cssclass="medium-width medium-text" runat="server"></asp:TextBox>
