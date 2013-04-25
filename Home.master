@@ -1,0 +1,81 @@
+<%@ Master Language="AVR" AutoEventWireup="false" CodeFile="Home.master.vr" Inherits="Home" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head runat="server">
+    <title>Untitled Page</title>
+    <link rel="stylesheet" type="text/css" href="public/css/masterpage_screen.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="public/css/sidebar-nav.css" />    
+    <link rel="stylesheet" type="text/css" href="public/css/main.css" />        
+	<asp:contentplaceholder id="ContentPlaceHolderHeader" runat="server"></asp:contentplaceholder> 
+</head>
+
+<body>
+    <form id="form1" runat="server">
+    
+    <div id="headerlogo"></div>
+    
+    <div id="header">
+      <div class="headertext">
+          Work with customers
+      </div>
+
+      <div id="rightheader">
+        <span class="hidden">Useful links:</span>
+        <a href="#">Contacts</a> |
+        <a href="#">Feedback</a> |
+        <a href="#">Search</a> |
+        <a href="#">About</a>
+      </div>
+    </div>
+      
+    <!--</div>  -->
+
+    <div id="mainnavbar">
+        <span class="hidden">Navigation:</span>
+        <a href="#">Home</a> |
+        <a href="#">Products</a> |
+        <a href="#">Services</a> |
+        <a href="#">Support</a> |
+        <a href="#">About</a> |
+        <a href="#">Other</a>
+    </div>
+
+    <div id="maincontent">
+        <div>
+            <div id="nav" class="nav rounded buttons shadows">
+                <ul>
+                    <li>
+                        <a href="#">Item #1 <span class="arrow-right pull-right"></span></a>
+                    </li>
+                    <li>
+                        <a href="#">Item #2 <span class="arrow-right pull-right"></span></a>
+                    </li>
+                    <li>
+                        <a href="#">Item #3 <span class="arrow-right pull-right"></span></a>
+                    </li>
+                    <li>
+                        <a href="#">Item #4 <span class="arrow-right pull-right"></span></a>
+                    </li>
+                    <li>
+                        <a href="#">Item #5 <span class="arrow-right pull-right"></span></a>
+                    </li>
+                    <li>
+                        <a href="#">Item #6 <span class="arrow-right pull-right"></span></a>
+                    </li>
+                </ul>
+            </div>
+            <div id="content-right" class="main-placeholder">
+                <asp:contentplaceholder id="ContentPlaceHolderMain" runat="server"></asp:contentplaceholder> 
+            </div>
+        </div>
+    </div>
+    <div id="footer">
+        <asp:Label ID="lblCopyright" runat="server" Text="Label" CssClass="footer-text"></asp:Label>
+    </div>    
+    </form>
+	<asp:contentplaceholder id="ContentPlaceHolderPageBottom" runat="server"></asp:contentplaceholder> 
+
+</body>
+</html>

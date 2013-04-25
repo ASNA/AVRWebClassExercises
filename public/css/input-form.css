@@ -1,0 +1,168 @@
+﻿/*
+body 
+{    
+    margin: 0;
+    padding: 0;    
+    font-family: Verdana, Tahoma, Arial, sans-serif;
+    background-color: #B6E9E2;
+    font-size: 1em;
+}
+*/
+
+.ConcurrencyError 
+{
+    color: Red;
+    margin-bottom: 16px;
+    margin-left: 24px;
+    display: block;
+}
+
+/* ----------------------------------------- */
+
+fieldset > label {
+    color: black;
+}
+
+fieldset.main
+{
+    margin: 1.5em 0 0 1.5em;
+    padding: 2em 0 0 0;
+    width: 500px;
+    font-size: .9em;
+    border: 1px solid #333333;
+    background: White;
+}
+
+fieldset.main legend
+{  
+    margin-left: 1em;  
+    color: #000000;  
+    font-weight: bold;    
+}
+
+fieldset.main ol 
+{  
+    padding: 1em 1em 0 1em;  
+    list-style: none;
+}
+
+fieldset.main li 
+{  
+    padding-bottom: .5em;
+}
+
+fieldset.main ol li label 
+{  
+    float: left;
+    width: 10em;        
+    margin-right: 1em;
+}
+
+/* ----------------------------------------- */
+
+fieldset.nested
+{
+    margin: 0 0 1em 1em;
+    padding: 0;
+    width: 475px; /* 25 px less than width of fieldset.main. */
+    font-size: .8em;
+    border: 1px solid gray;
+    background: #DFDFDF;
+}
+
+fieldset.nested legend
+{
+    margin-left: 1em;
+    font-weight: 800;
+    font-size: .9em;
+    color: #333333;
+    background-color: #C0C0C0; /* padding: 0 1em 0 1em;*/
+    padding: 2px 1em 2px 1em; 
+    /*padding: 0 1em 0 1em;*/
+    border: 1px solid #999999;
+}
+
+fieldset.nested ol 
+{  
+    padding: 0 1em 0 1em;  
+    list-style: none;
+}
+
+fieldset.nested li:first-child
+{  
+    /* Control leading between rows. */
+    padding-top: 1em;
+    padding-bottom: .7em;
+}
+
+fieldset.nested li 
+{  
+    /* Control leading between rows. */
+    padding-bottom: .7em;
+}
+
+fieldset.nested ol li label 
+{  
+    float: left;
+    width: 10em;        
+    margin-right: 1em;
+}
+
+/* ----------------------------------------- */
+
+input.actionButton
+{                                  
+    /* border-style: none; */
+    width: 6em;
+    height: 2.5em;
+}
+
+div.buttonsContainer
+{
+    float: right;
+    margin: 0 1em 1em 0;
+}
+
+/* ----------------------------------------- */
+
+.smallWidth
+{
+    width: 5em;
+}
+
+.mediumWidth
+{
+    width: 10em;
+}
+
+.largeWidth
+{
+    width: 20em;
+}
+
+.errorValidator
+{
+    display:block;
+
+}
+
+.panelError
+{
+    display:block;
+    margin-left: 1em;
+    font-size: .9em;
+    color: red;
+}
+
+.errorMessage 
+{
+    margin-left: 128px;
+    display: inline-block;
+}
+
+.errorMessageServer
+{
+    margin-left: 128px;
+    display: inline-block;
+    color: #990099;
+}

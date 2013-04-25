@@ -1,0 +1,40 @@
+/*
+   CSS comments look just like CL comments.
+ */
+
+ html {
+    font-size: 62.5%;
+}
+
+body
+{
+    font-family: Verdana, Tahoma, Sans-Serif;
+    /*background-color: #ffffcc;*/
+    font-size: 16px;
+}
+
+.navigation-buttons {
+    margin-bottom: .8rem;
+}
+
+.small-text {
+    font-size: .8rem;
+}     
+
+.medium-text {
+    font-size: 1.0rem;
+}
+
+.large-text {
+    font-size: 1.2rem;
+}
+
+.footer-text {
+    font-size: 0.8rem;
+}
+
+.medium-button {
+    font-size: 1.8rem;
+    width: 6rem;
+    height: 3rem;
+}
