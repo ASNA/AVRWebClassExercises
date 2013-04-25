@@ -12,16 +12,16 @@ Using System.Text.RegularExpressions
 
 BegClass views_UpdateCustomer Partial(*Yes) Access(*Public) Extends(System.Web.UI.Page)
 
-    DclDB DGServer DBName( "*Public/DG Net Local" )
+    DclDB DGServer DBName("*Public/DG Net Local")
     
     DclDiskFile CustomerByNumber +
-        Type( *Update ) +
-        Org( *Indexed ) + 
-        Prefix( Customer_ ) + 
-        File( "Examples/CMastNewL1" ) +
-        DB( DGServer ) +
-        ImpOpen( *No ) + 
-        AddRec( *Yes ) 
+        Type(*Update) +
+        Org(*Indexed) + 
+        Prefix(Customer_) + 
+        File("Examples/CMastNewL1") +
+        DB(DGServer) +
+        ImpOpen(*No) + 
+        AddRec(*Yes) 
 
     BegSr Page_Load Access(*Private) Event(*This.Load)
         DclSrParm sender Type(*Object)
@@ -45,17 +45,17 @@ BegClass views_UpdateCustomer Partial(*Yes) Access(*Public) Extends(System.Web.U
         Close *All
     EndSr
 
-    BegFunc ReadRecord Type( *Integer4 )
-        DclFld Result Type( *Integer4 ) Inz( -1 )
+    BegFunc ReadRecord Type(*Integer4)
+        DclFld Result Type(*Integer4) Inz(-1)
     
         // Connect DB and open files.
         ConnectServer()
     
         Customer_CMCustNo = textboxCMCustNo.Text 
     
-        Chain CustomerByNumber Key(Customer_CMCustNo) Access( *NoLock )  
+        Chain CustomerByNumber Key(Customer_CMCustNo) Access(*NoLock)  
             
-        If ( CustomerByNumber.IsFound )
+        If (CustomerByNumber.IsFound)
             PopulateUIFromRecord()
         Else
             // Error handling code here.
@@ -69,7 +69,7 @@ BegClass views_UpdateCustomer Partial(*Yes) Access(*Public) Extends(System.Web.U
     EndFunc 
     
     BegSr PopulateUIFromRecord
-        Page.Title = Customer_CMName 
+        Page.Title = "Updating: " + Customer_CMName 
     
         // Populate the user interface from the record format.
         textboxCMName.Text     = Customer_CMName.Trim()
@@ -90,8 +90,8 @@ BegClass views_UpdateCustomer Partial(*Yes) Access(*Public) Extends(System.Web.U
         // http://john-sheehan.com/blog/net-format-string-cheat-sheet/        
     EndSr   
 
-    BegFunc UpdateRecord Type( *Integer4 )
-        DclFld Result Type( *Integer4 ) 
+    BegFunc UpdateRecord Type(*Integer4)
+        DclFld Result Type(*Integer4) 
         
         Result = -1
         
@@ -101,11 +101,11 @@ BegClass views_UpdateCustomer Partial(*Yes) Access(*Public) Extends(System.Web.U
         Customer_CMCustNo = textboxCMCustNo.Text 
 
         // Read record for update.
-        Chain CustomerByNumber Key( Customer_CMCustNo ) 
-        If ( CustomerByNumber.IsError ) 
+        Chain CustomerByNumber Key(Customer_CMCustNo) 
+        If (CustomerByNumber.IsError) 
             Result = 1
         Else 
-            If ( CustomerByNumber.IsFound )
+            If (CustomerByNumber.IsFound)
                 PopulateRecordFromUI()
                 Update CustomerByNumber                
             Else
@@ -130,13 +130,13 @@ BegClass views_UpdateCustomer Partial(*Yes) Access(*Public) Extends(System.Web.U
         Customer_CMPostCode  = textboxCMPostCode.Text
         Customer_CMCntry     = textBoxCMCntry.Text 
         
-        DclConst NON_DIGITS Value( "\D" ) 
+        DclConst NON_DIGITS Value("\D") 
         
         // A great .NET regex cheat sheet.
         // http://regexlib.com/cheatsheet.aspx        
         // Needs this using statement:    
         // Using System.Text.RegularExpressions
-        Customer_CMFax = "0" + Regex.Replace( textboxCMFax.Text, NON_DIGITS, String.Empty ) 
+        Customer_CMFax = "0" + Regex.Replace(textboxCMFax.Text, NON_DIGITS, String.Empty) 
     EndSr        
 
 
@@ -144,16 +144,15 @@ BegClass views_UpdateCustomer Partial(*Yes) Access(*Public) Extends(System.Web.U
 		DclSrParm sender Type(*Object)
 		DclSrParm e Type(System.EventArgs)
 
-        DclFld Result Type( *Integer4 ) Inz(-1)
+        DclFld Result Type(*Integer4) Inz(-1)
         
-        If ( Page.IsValid ) 
+        If (Page.IsValid) 
             Result = UpdateRecord()
-            If ( Result < 0 )
+            If (Result < 0)
                 Session["number"] = Customer_CMCustNo
                 Session["name"  ] = Customer_CMName            
+                RemoveSessionVariables()
                 Response.Redirect("ListCustomers.aspx") 		
-                buttonOK.Enabled = *True
-                buttonRefresh.Enabled = *False
             Else
                 buttonOK.Enabled = *False                 
                 buttonRefresh.Enabled = *True 
@@ -167,6 +166,23 @@ BegClass views_UpdateCustomer Partial(*Yes) Access(*Public) Extends(System.Web.U
        
         Session["number"] = Session[ "firstrownumber" ] 
         Session["name"  ] = Session[ "firstrowname"   ]       
+        RemoveSessionVariables()
         Response.Redirect("ListCustomers.aspx") 		
+	EndSr
+
+    BegSr RemoveSessionVariables
+        Session.Remove("customernumber")
+        Session.Remove("firstrownumber") 
+        Session.Remove("firstrowname") 
+    EndSr
+
+	BegSr customvalidatorCMAddr1_ServerValidate Access(*Private) Event(*This.customvalidatorCMAddr1.ServerValidate)
+		DclSrParm source Type(*Object)
+		DclSrParm args Type(System.Web.UI.WebControls.ServerValidateEventArgs)
+
+        If ( textboxCMAddr1.Text.Trim().ToLower().StartsWith("po"))
+            args.IsValid = *False
+        EndIf
+		
 	EndSr
 EndClass

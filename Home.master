@@ -71,7 +71,7 @@
         </div>
     </div>
     <div id="footer">
-        <asp:Label ID="lblCopyright" runat="server" Text="Label" CssClass="footer-text">Footer text here</asp:Label>
+        <asp:Label ID="lblCopyright" runat="server" Text="Label" CssClass="footer-text">ASNA AVR Five-Day Web Class</asp:Label>
     </div>    
     </form>
 	<asp:contentplaceholder id="ContentPlaceHolderPageBottom" runat="server"></asp:contentplaceholder> 

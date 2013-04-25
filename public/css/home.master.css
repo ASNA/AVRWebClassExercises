@@ -18,7 +18,7 @@ body {
 
 .hidden {			/* Used for content that should be displayed */
     				/* by non-stylesheet-aware browsers          */
-   display:     none !important;
+   display: none !important;
 }
 
 div {
@@ -27,37 +27,46 @@ div {
 
 div#header {
    background: #c5e7fd;	
+   height: 72px;
    height: 7.2rem;
 }
 
 div#headerlogo {
     float:left;
     background: url(../../public/images/asna.png) top left no-repeat;
+    width: 180px;
     width: 18rem;
+    height: 52px;
     height: 5.2rem;
+    margin-top: 10px;
     margin-top: 1rem;
+    margin-left: 10px;
     margin-left: 1rem;
 }
 
 div.headertext {	
+    font-size: 30px;
 	font-size: 3rem;
 	font-weight:800;
 	float: left;
+    padding-top: 25px;
     padding-top: 2.5rem; 
     width: 40rem;
 }
 
 div#header a:link,
 div#header a:visited {
-   font-size:       1.5rem;
-   font-weight:     bold;
-   text-decoration: none;
-   color:           black;
-   background:      transparent;
+    font-size: 15px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: black;
+    background: transparent;
 }
 
 div#rightheader {
     float: right;
+    padding-right: 8px;
 	padding-right: .8rem;
     background: transparent;
 }
@@ -66,41 +75,56 @@ div#mainnavbar {
 	clear: both;
 	background-color: #778899;		
 	border-top: 2px solid navy;
+	border-top: .2rem solid navy;
 	border-bottom: 2px solid navy;
+	border-bottom: .2rem solid navy;
+    padding-left: 12px;
     padding-left: 1.2rem;
+    padding-bottom: 3px;
     padding-bottom: .3rem;
 }
 
 div#mainnavbar  a:link,
 div#mainnavbar  a:visited {
-   font-size:       1.6rem;
-   font-weight:     bold;
-   text-decoration: none;
-   color:           white;
-   background:      transparent;
+    font-size: 16px;
+    font-size: 1.6rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+    background: transparent;
 }
 
 div.divlogin {
+    border-bottom: 1px solid black;
     border-bottom: .1rem solid black;
 }
 
 div#applicationcontent {
 	background: White;
     border-left: 1px solid black;
+    border-left: .1rem solid black;
 }
 
 div#content-right {
+    padding: 12px;
     padding: 1.2rem;
+    margin-left: 160px;
     margin-left: 16rem;
 }
 
 div#footer {
     border-top: 1px solid black;
+    border-top: .1rem solid black;
     border-bottom: 1px solid black;
+    border-bottom: .1rem solid black;
     background:      #c5e7fd;	
+    margin-top: 6px;
     margin-top: .6rem;
+    padding-top: 2px;
     padding-top: .2rem;
+    padding-bottom: 2px;    
     padding-bottom: .2rem;    
+    padding-left: 12px;
     padding-left: 1.2rem;
 }
 
@@ -110,31 +134,40 @@ div#footer {
 }
 
 .small-text {
+    font-size: 14px;
     font-size: 1.4rem;
 }     
 
 .medium-text {
+    font-size: 20px;
     font-size: 2.0rem;
 }
 
 .large-text {
+    font-size: 28px;
     font-size: 2.8rem;
 }
 
 .footer-text {
+    font-size: 15px;
     font-size: 1.5rem;
 }
 
 .error-input {
     background-color: white;
     color: red;
+    font-size: 18px;
     font-size: 1.8rem;
+    padding: 2px;
     padding: .2rem;
 }
 
 .medium-button {
+    font-size: 18px;
     font-size: 1.8rem;
+    width: 80px;
     width: 8rem;
+    height: 30px;
     height: 3rem;
 }
 
@@ -148,8 +181,10 @@ div#footer {
 
 .show-border {
     border: 2px red solid;
+    border: .2rem red solid;
 }
 
 .space-left {
+    margin-left: 20px;
     margin-left: 2rem;
 }

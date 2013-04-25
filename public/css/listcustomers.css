@@ -3,14 +3,18 @@ Rules specific to ListCustomers.css
 */
 
 .navigation-buttons-container {
+    margin-bottom: 8px;
     margin-bottom: .8rem;
 }
 
 #gridviewCustomer {
+    width: 700px;
     width: 70rem;
+    font-size: 16px;
     font-size: 1.6rem;
 }
 
 .actions-container {
+    height: 40px;
     height: 4rem;
 }

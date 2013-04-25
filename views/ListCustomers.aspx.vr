@@ -21,7 +21,7 @@ BegClass views_ListCustomers Partial(*Yes) Access(*Public) Extends(System.Web.UI
           DB(DGServer) +
           ImpOpen(*No)
 
-    DclMemoryFile CustomerByNameMF2 ImpOpen( *Yes ) 
+    DclMemoryFile CustomerByNameMF2 
         DclRecordFormat Customers 
         DclRecordFld    Customer_CMCustNo  Type(*Packed) Len(9,0)
         DclRecordFld    Customer_CMName    Type(*Char) Len(40)    
@@ -29,6 +29,8 @@ BegClass views_ListCustomers Partial(*Yes) Access(*Public) Extends(System.Web.UI
     BegSr Page_Load Access(*Private) Event(*This.Load)
         DclSrParm sender Type(*Object)
         DclSrParm e Type(System.EventArgs)
+
+        Page.Title = "Work with customers"
 
         ConnectServer()
 
@@ -77,7 +79,32 @@ BegClass views_ListCustomers Partial(*Yes) Access(*Public) Extends(System.Web.UI
         Close *All
     EndSr
 
-	BegSr buttonNext_Click Access(*Private) Event(*This.buttonNext.Click)
+	BegSr gridviewCustomer_SelectedIndexChanged Access(*Private) Event(*This.gridviewCustomer.SelectedIndexChanged)
+		DclSrParm sender Type(*Object)
+		DclSrParm e Type(System.EventArgs)
+
+        DclFld SelectedRow Type( *Integer4 ) 
+        
+        SelectedRow = gridviewCustomer.SelectedIndex        
+        
+        Session["customernumber"] = gridviewCustomer.DataKeys[ SelectedRow ]["customer_cmcustno"]
+
+        // Get customer number and name from the top (zeroth) row.
+        Session["firstrownumber"] = gridviewCustomer.DataKeys[0]["customer_cmcustno"]
+        Session["firstrowname"  ] = gridviewCustomer.DataKeys[0]["customer_cmname"]
+        
+        Response.Redirect("updatecustomer.aspx")	
+	EndSr
+
+	BegSr buttonFirst_Click Access(*Private) Event(*This.buttonFirst.Click)
+		DclSrParm sender Type(*Object)
+		DclSrParm e Type(System.EventArgs)
+
+        SetLL CustomerByName Key(*Start)
+        LoadGrid()		
+	EndSr
+
+   	BegSr buttonNext_Click Access(*Private) Event(*This.buttonNext.Click)
 		DclSrParm sender Type(*Object)
 		DclSrParm e Type(System.EventArgs)
 
@@ -91,23 +118,6 @@ BegClass views_ListCustomers Partial(*Yes) Access(*Public) Extends(System.Web.UI
         // Position file to that row.
         SetLL CustomerByName Key(Customer_CMName, Customer_CMCustNo)
         LoadGrid()		
-	EndSr
-
-	BegSr gridviewCustomer_SelectedIndexChanged Access(*Private) Event(*This.gridviewCustomer.SelectedIndexChanged)
-		DclSrParm sender Type(*Object)
-		DclSrParm e Type(System.EventArgs)
-
-        DclFld SelectedRow Type( *Integer4 ) 
-        
-        SelectedRow = gridviewCustomer.SelectedIndex        
-        
-        Session["customernumber"] = gridviewCustomer.DataKeys[ SelectedRow ]["customer_cmcustno"]
-
-        // Get customer number and name from the top (zeroth) row.
-        Session["firstrownumber"] = gridviewCustomer.DataKeys[0]["customer_cmcustno"]
-        Session["firstrowname"  ] = gridviewCustomer.DataKeys[0]["customer_cmname"  ]
-        
-        Response.Redirect("updatecustomer.aspx")	
 	EndSr
 
 	BegSr buttonPositionTo_Click Access(*Private) Event(*This.buttonPositionTo.Click)

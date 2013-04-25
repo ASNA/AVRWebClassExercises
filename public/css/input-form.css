@@ -13,7 +13,7 @@ fieldset.main
 {
     margin: 1.5rem 0 0 1.5rem;
     padding: 2rem 0 0 0;
-    width: 50rem;
+    width: 70rem;
     font-size: 1.4rem;
     border: 1px solid #333333;
     background: White;
@@ -50,7 +50,7 @@ fieldset.nested
 {
     margin: 0 0 1rem 1rem;
     padding: 0;
-    width: 47.5rem; /* 25 px less than width of fieldset.main. */
+    width: 67.5rem; /* 25 px less than width of fieldset.main. */
     font-size: 1.4rem;
     border: 1px solid gray;
     background: #DFDFDF;
@@ -117,12 +117,12 @@ div.buttonsContainer
 
 .medium-width
 {
-    width: 10rem;
+    width: 14rem;
 }
 
 .large-width
 {
-    width: 20rem;
+    width: 30rem;
 }
 
 .errorValidator
@@ -142,6 +142,7 @@ div.buttonsContainer
 {
     margin-left: 1rem;
     color: red;
+    display: inline-block;
     background-color: white;
     padding-top: .3rem;
     padding-bottom: .3rem;
@@ -149,7 +150,10 @@ div.buttonsContainer
 
 .errorMessageServer
 {
-    margin-left: 12.8rem;
+    margin-left: 1rem;
+    color: red;
+    background-color: white;
     display: inline-block;
-    color: #990099;
+    padding-top: .3rem;
+    padding-bottom: .3rem;
 }
