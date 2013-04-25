@@ -5,7 +5,7 @@ body
     padding: 0;    
     font-family: Verdana, Tahoma, Arial, sans-serif;
     background-color: #B6E9E2;
-    font-size: 1em;
+    font-size: 1rem;
 }
 */
 
@@ -25,87 +25,87 @@ fieldset > label {
 
 fieldset.main
 {
-    margin: 1.5em 0 0 1.5em;
-    padding: 2em 0 0 0;
+    margin: 1.5rem 0 0 1.5rem;
+    padding: 2rem 0 0 0;
     width: 500px;
-    font-size: .9em;
+    font-size: .9rem;
     border: 1px solid #333333;
     background: White;
 }
 
 fieldset.main legend
 {  
-    margin-left: 1em;  
+    margin-left: 1rem;  
     color: #000000;  
     font-weight: bold;    
 }
 
 fieldset.main ol 
 {  
-    padding: 1em 1em 0 1em;  
+    padding: 1rem 1rem 0 1rem;  
     list-style: none;
 }
 
 fieldset.main li 
 {  
-    padding-bottom: .5em;
+    padding-bottom: .5rem;
 }
 
 fieldset.main ol li label 
 {  
     float: left;
-    width: 10em;        
-    margin-right: 1em;
+    width: 10rem;        
+    margin-right: 1rem;
 }
 
 /* ----------------------------------------- */
 
 fieldset.nested
 {
-    margin: 0 0 1em 1em;
+    margin: 0 0 1rem 1rem;
     padding: 0;
     width: 475px; /* 25 px less than width of fieldset.main. */
-    font-size: .8em;
+    font-size: .8rem;
     border: 1px solid gray;
     background: #DFDFDF;
 }
 
 fieldset.nested legend
 {
-    margin-left: 1em;
+    margin-left: 1rem;
     font-weight: 800;
-    font-size: .9em;
+    font-size: .9rem;
     color: #333333;
-    background-color: #C0C0C0; /* padding: 0 1em 0 1em;*/
-    padding: 2px 1em 2px 1em; 
-    /*padding: 0 1em 0 1em;*/
+    background-color: #C0C0C0; /* padding: 0 1rem 0 1rem;*/
+    padding: 2px 1rem 2px 1rem; 
+    /*padding: 0 1rem 0 1rem;*/
     border: 1px solid #999999;
 }
 
 fieldset.nested ol 
 {  
-    padding: 0 1em 0 1em;  
+    padding: 0 1rem 0 1rem;  
     list-style: none;
 }
 
 fieldset.nested li:first-child
 {  
     /* Control leading between rows. */
-    padding-top: 1em;
-    padding-bottom: .7em;
+    padding-top: 1rem;
+    padding-bottom: .7rem;
 }
 
 fieldset.nested li 
 {  
     /* Control leading between rows. */
-    padding-bottom: .7em;
+    padding-bottom: .7rem;
 }
 
 fieldset.nested ol li label 
 {  
     float: left;
-    width: 10em;        
-    margin-right: 1em;
+    width: 10rem;        
+    margin-right: 1rem;
 }
 
 /* ----------------------------------------- */
@@ -113,31 +113,31 @@ fieldset.nested ol li label
 input.actionButton
 {                                  
     /* border-style: none; */
-    width: 6em;
-    height: 2.5em;
+    width: 6rem;
+    height: 2.5rem;
 }
 
 div.buttonsContainer
 {
     float: right;
-    margin: 0 1em 1em 0;
+    margin: 0 1rem 1rem 0;
 }
 
 /* ----------------------------------------- */
 
 .smallWidth
 {
-    width: 5em;
+    width: 5rem;
 }
 
 .mediumWidth
 {
-    width: 10em;
+    width: 10rem;
 }
 
 .largeWidth
 {
-    width: 20em;
+    width: 20rem;
 }
 
 .errorValidator
@@ -149,8 +149,8 @@ div.buttonsContainer
 .panelError
 {
     display:block;
-    margin-left: 1em;
-    font-size: .9em;
+    margin-left: 1rem;
+    font-size: .9rem;
     color: red;
 }
 
