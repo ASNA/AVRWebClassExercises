@@ -31,7 +31,7 @@ BegClass USStatesList Access(*Public)
         OpenData()
 
         // Allocate the Result array to the correct number of elements.
-        Result = *New ListItem[States.RecCount] 
+        Result = *New ListItem[States.RecCount]
 
         Read States
         DoWhile (NOT States.IsEof)

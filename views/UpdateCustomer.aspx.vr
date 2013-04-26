@@ -196,13 +196,17 @@ BegClass views_UpdateCustomer Partial(*Yes) Access(*Public) Extends(System.Web.U
 	EndSr
 
     BegSr PopulateStatusDropDown
-        DclFld li Type( ListItem ) 
-        
+        DclFld li Type(ListItem)
+       
         li = *New ListItem( "Active", "1" ) 
         dropdownlistCMActive.Items.Add( li ) 
 
         li = *New ListItem( "Inactive","0" )
         dropdownlistCMActive.Items.Add( li ) 
+
+//        dropdownlistCMActive.Items.Add(*New ListItem("Active","1")) 
+//        dropdownlistCMActive.Items.Add(*New ListItem("Inactive","0")) 
+
     EndSr
 
     BegSr PopulateStateDropDown

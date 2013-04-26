@@ -1,5 +1,4 @@
 <%@ Master Language="AVR" AutoEventWireup="false" CodeFile="Home.master.vr" Inherits="Home" %>
-
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml" >
@@ -12,8 +11,6 @@
 
 <body>
     <form id="form1" runat="server">
-    
-    
     <div id="header">
       <div id="headerlogo"></div>
       <div class="headertext">
@@ -29,8 +26,6 @@
       </div>
     </div>
       
-    <!--</div>  -->
-
     <div id="mainnavbar">
         <span class="hidden">Navigation:</span>
         <a href="#">Home</a> |
