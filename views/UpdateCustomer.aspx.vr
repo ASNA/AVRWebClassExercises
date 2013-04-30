@@ -23,12 +23,22 @@ BegClass views_UpdateCustomer Partial(*Yes) Access(*Public) Extends(System.Web.U
         ImpOpen(*No) + 
         AddRec(*Yes) 
 
+    DclMemoryFile CustMem +
+          DBDesc( "*Public/DG Net Local" )  +
+          Prefix( Customer_ )  +
+          FileDesc( "Examples/CMastNewL1" ) +
+          ImpOpen( *Yes )  +
+          RnmFmt( CustMemR )
+
     BegEnum IOStatus 
         DclEnumFld OK                   
         DclEnumFld UndefinedError       
         DclEnumFLd ConcurrencyViolation
-        DclEnumFld RecordNotFound 
+        DclEnumFld RecordNotFound
+        DclEnumFld UpdateFailed 
     EndEnum 
+
+    DclConst NORTH_AMERICAN_PHONE Value("(000) 000-0000")
 
     BegSr Page_Load Access(*Private) Event(*This.Load)
         DclSrParm sender Type(*Object)
@@ -53,6 +63,21 @@ BegClass views_UpdateCustomer Partial(*Yes) Access(*Public) Extends(System.Web.U
         Close *All
     EndSr
 
+    BegFunc HashRecordBuffer Type( *String ) 
+        // Get hash value of record buffer.
+        DclFld Buffer       Type( *String )
+        DclFld HashedBuffer Type( *String ) 
+        
+        // Get XML string representing record buffer.
+        Buffer = CustMem.DataSet.GetXML()      
+        
+        // Hash that value into HashedBuffer. 
+        // This transform a record buffer _of any length_ into a unique 40-byte string value.
+        HashedBuffer = FormsAuthentication.HashPasswordForStoringInConfigFile( Buffer, "sha1" )    
+        
+        LeaveSr Value( HashedBuffer ) 
+    EndFunc            
+
     BegFunc ReadRecord Type(*Integer4)
         DclFld Result Type(*Integer4) 
 
@@ -67,6 +92,12 @@ BegClass views_UpdateCustomer Partial(*Yes) Access(*Public) Extends(System.Web.U
             Result = IOStatus.UndefinedError
         Else             
             If (CustomerByNumber.IsFound)
+                // Write record just read to the dataset.
+                Write CustMem
+
+                // Save "before" record buffer contents in viewstate.
+                ViewState[ "buffer" ] = HashRecordBuffer()            
+
                 PopulateUIFromRecord()
             Else
                 Result = IOStatus.RecordNotFound
@@ -88,7 +119,7 @@ BegClass views_UpdateCustomer Partial(*Yes) Access(*Public) Extends(System.Web.U
         textboxCMPhone.Text    = Customer_CMPhone.Trim()
         textboxCMPostCode.Text = Customer_CMPostCode.Trim()
         textboxCMCntry.Text    = Customer_CMCntry.Trim()
-        textboxCMFax.Text      = Customer_CMFax.ToString("(000) 000-0000") 
+        textboxCMFax.Text      = Customer_CMFax.ToString(NORTH_AMERICAN_PHONE) 
         
         dropdownlistCMState.SelectedValue = Customer_CMState   
         dropdownlistCMActive.SelectedValue = Customer_CMActive
@@ -116,8 +147,27 @@ BegClass views_UpdateCustomer Partial(*Yes) Access(*Public) Extends(System.Web.U
             Result = IOStatus.UndefinedError
         Else 
             If (CustomerByNumber.IsFound)
-                PopulateRecordFromUI()
-                Update CustomerByNumber                
+                Write CustMem
+                // Compare the hash of the record just read with the hash of 
+                // the record saved in the ViewState variable.
+                If ( ViewState[ "buffer" ].ToString() = HashRecordBuffer() )        
+                    // Populate record buffer with values from the UI.
+                    PopulateRecordFromUI()
+                    Update CustomerByNumber
+                    If ( NOT CustomerByNumber.IsError ) 
+                        Result = IOStatus.OK    
+                    EndIf 
+                    buttonRefresh.Enabled = *True 
+                    buttonOK.Enabled = *False
+                    labelConcurrencyError.Visible = *False
+                Else
+                    // Set button's UI.
+                    SetCurrentFieldValues()
+                    buttonRefresh.Enabled = *True 
+                    buttonOK.Enabled = *False
+                    labelConcurrencyError.Visible = *True
+                    Result = IOStatus.ConcurrencyViolation
+                EndIf
             Else
                 Result = IOStatus.RecordNotFound
             EndIf
@@ -127,6 +177,49 @@ BegClass views_UpdateCustomer Partial(*Yes) Access(*Public) Extends(System.Web.U
 
         LeaveSr Result
     EndFunc  
+
+    BegSr SetCurrentFieldValues
+        If (Customer_CMName <> textboxCMName.Text)       
+            changedCMName.ToolTip = Customer_CMName.Trim()
+            changedCMName.Text = "*"
+        EndIf
+        If (Customer_CMActive <> dropdownlistCMActive.SelectedValue)       
+            changedCMActive.ToolTip = Customer_CMActive.Trim()
+            changedCMActive.Text = "*"
+        EndIf
+        If (Customer_CMAddr1 <> textboxCMAddr1.Text)       
+            changedCMAddr1.ToolTip = Customer_CMAddr1.Trim()
+            changedCMAddr1.Text = "*"
+        EndIf
+        If (Customer_CMAddr1 <> textboxCMAddr1.Text)       
+            changedCMAddr1.ToolTip = Customer_CMAddr1.Trim()
+            changedCMAddr1.Text = "*"
+        EndIf
+        If (Customer_CMCity <> textboxCMCity.Text)       
+            changedCMCity.ToolTip = Customer_CMCity.Trim()
+            changedCMCity.Text = "*"
+        EndIf
+        If (Customer_CMState <> dropdownlistCMState.SelectedValue)       
+            changedCMState.ToolTip = Customer_CMState.Trim()
+            changedCMState.Text = "*"
+        EndIf
+        If (Customer_CMPostCode <> textboxCMPostCode.Text)       
+            changedCMPostCode.ToolTip = Customer_CMPostCode.Trim()
+            changedCMPostCode.Text = "*"
+        EndIf
+        If (Customer_CMCntry <> textboxCMCntry.Text)       
+            changedCMCntry.ToolTip = Customer_CMCntry.Trim()
+            changedCMCntry.Text = "*"
+        EndIf
+        If (Customer_CMFax.ToString(NORTH_AMERICAN_PHONE) <> textboxCMFax.Text)       
+            changedCMFax.ToolTip = Customer_CMFax.ToString(NORTH_AMERICAN_PHONE)
+            changedCMFax.Text = "*"
+        EndIf
+        If (Customer_CMPhone <> textboxCMPhone.Text)       
+            changedCMPhone.ToolTip = Customer_CMPhone.Trim()
+            changedCMPhone.Text = "*"
+        EndIf
+    EndSr
     
     BegSr PopulateRecordFromUI
         // Populate the record format from the user interface.
@@ -149,10 +242,21 @@ BegClass views_UpdateCustomer Partial(*Yes) Access(*Public) Extends(System.Web.U
         Customer_CMFax = "0" + Regex.Replace(textboxCMFax.Text, NON_DIGITS, String.Empty) 
     EndSr        
 
+    BegSr buttonRefresh_Click Access(*Private) Event(*This.buttonRefresh.Click)
+        DclSrParm sender Type(*Object)
+        DclSrParm e Type(System.EventArgs)
 
-	BegSr buttonOK_Click Access(*Private) Event(*This.buttonOK.Click)
-		DclSrParm sender Type(*Object)
-		DclSrParm e Type(System.EventArgs)
+        ReadRecord()
+        textboxCMName.Focus() 
+
+        buttonRefresh.Enabled = *False
+        buttonOK.Enabled = *True  
+        labelConcurrencyError.Visible = *False 
+    EndSr
+
+    BegSr buttonOK_Click Access(*Private) Event(*This.buttonOK.Click)
+        DclSrParm sender Type(*Object)
+        DclSrParm e Type(System.EventArgs)
 
         DclFld Result Type(*Integer4) Inz(-1)
         
@@ -163,22 +267,19 @@ BegClass views_UpdateCustomer Partial(*Yes) Access(*Public) Extends(System.Web.U
                 Session["name"  ] = Customer_CMName            
                 RemoveSessionVariables()
                 Response.Redirect("ListCustomers.aspx") 		
-            Else
-                buttonOK.Enabled = *False                 
-                buttonRefresh.Enabled = *True 
             EndIf
         EndIf		
-	EndSr
+    EndSr
 
-	BegSr buttonCancel_Click Access(*Private) Event(*This.buttonCancel.Click)
-		DclSrParm sender Type(*Object)
-		DclSrParm e Type(System.EventArgs)
+    BegSr buttonCancel_Click Access(*Private) Event(*This.buttonCancel.Click)
+        DclSrParm sender Type(*Object)
+        DclSrParm e Type(System.EventArgs)
        
         Session["number"] = Session[ "firstrownumber" ] 
         Session["name"  ] = Session[ "firstrowname"   ]       
         RemoveSessionVariables()
         Response.Redirect("ListCustomers.aspx") 		
-	EndSr
+    EndSr
 
     BegSr RemoveSessionVariables
         Session.Remove("customernumber")
@@ -186,14 +287,14 @@ BegClass views_UpdateCustomer Partial(*Yes) Access(*Public) Extends(System.Web.U
         Session.Remove("firstrowname") 
     EndSr
 
-	BegSr customvalidatorCMAddr1_ServerValidate Access(*Private) Event(*This.customvalidatorCMAddr1.ServerValidate)
-		DclSrParm source Type(*Object)
-		DclSrParm args Type(System.Web.UI.WebControls.ServerValidateEventArgs)
+    BegSr customvalidatorCMAddr1_ServerValidate Access(*Private) Event(*This.customvalidatorCMAddr1.ServerValidate)
+        DclSrParm source Type(*Object)
+        DclSrParm args Type(System.Web.UI.WebControls.ServerValidateEventArgs)
 
         If ( textboxCMAddr1.Text.Trim().ToLower().StartsWith("po"))
             args.IsValid = *False
         EndIf
-	EndSr
+    EndSr
 
     BegSr PopulateStatusDropDown
         DclFld li Type(ListItem)
@@ -217,5 +318,6 @@ BegClass views_UpdateCustomer Partial(*Yes) Access(*Public) Extends(System.Web.U
         dropdownlistCMState.DataSource = sl.GetList()
         dropdownlistCMState.DataBind()
     EndSr 
+
 
 EndClass

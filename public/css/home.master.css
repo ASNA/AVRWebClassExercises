@@ -188,3 +188,11 @@ div#footer {
     margin-left: 20px;
     margin-left: 2rem;
 }
+
+.ErrorColor {
+    color: red;
+}
+
+.output-only {
+    background-color: #CCCCCC;
+}
