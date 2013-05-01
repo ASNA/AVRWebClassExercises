@@ -15,6 +15,8 @@ BegClass views_Concurrency Partial(*Yes) Access(*Public) Extends(System.Web.UI.P
 		DclSrParm sender Type(*Object)
 		DclSrParm e Type(System.EventArgs)
 
+        Page.Title = "SHA1 Hashing"
+
         textboxHashedValue.Text = FormsAuthentication.HashPasswordForStoringInConfigFile(textboxValueToHash.Text, "sha1") 
 	EndSr                                             
 EndClass

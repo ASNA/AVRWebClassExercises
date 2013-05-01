@@ -1,0 +1,60 @@
+﻿.left-label {
+    width: 9rem;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.jumbo-text {
+    font-size: 2rem;
+}
+
+.container-width {
+    width: 66rem;
+}
+
+.wide-input {
+    width: 55rem;
+}
+
+.tall-input {
+    height: 35rem;
+}
+
+#buttonHashText {
+    float: right;
+    margin-top: 1rem;
+    margin-right: 2rem;
+}
+
+.space-above {
+    margin-top: 1rem;
+}
+
+textarea {
+    font-family: Verdana;
+}
+
+/* 
+    See https://github.com/h5bp/html5-boilerplate/blob/master/css/main.css
+    for the original definition of this swindle to clear floats without the 
+    need for adding a div tag.        
+*/
+
+.clearfix:before,
+.clearfix:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+/*
+* For IE 6/7 only
+* Include this rule to trigger hasLayout and contain floats.
+*/
+
+.clearfix {
+    *zoom: 1;
+}

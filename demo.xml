@@ -1,15 +1,15 @@
 <?xml version="1.0" standalone="yes"?>
 <Examples_x002F_CMastNewL1 xmlns="http://www.tempuri.org/Examples%2FCMastNewL1.xsd">
   <RCMMastL1>
-    <CMCustNo>56300</CMCustNo>
-    <CMName>A Group Co</CMName>
-    <CMAddr1>1625 E Memorial Avenue</CMAddr1>
-    <CMCity>Mountain Home</CMCity>
-    <CMState>AR</CMState>
+    <CMCustNo>91500</CMCustNo>
+    <CMName>A Corp &amp; R Inc</CMName>
+    <CMAddr1>900 Vinecrest Moorland 190260 River</CMAddr1>
+    <CMCity>Auburn</CMCity>
+    <CMState>PA</CMState>
     <CMCntry>US</CMCntry>
-    <CMPostCode>72653</CMPostCode>
+    <CMPostCode>17922</CMPostCode>
     <CMActive>1</CMActive>
-    <CMFax>5135419500</CMFax>
-    <CMPhone>(513) 231-3800</CMPhone>
+    <CMFax>5237947600</CMFax>
+    <CMPhone>(523) 529-4683</CMPhone>
   </RCMMastL1>
 </Examples_x002F_CMastNewL1>
