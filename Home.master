@@ -36,6 +36,13 @@
         <a href="#">Other</a>
     </div>
 
+
+    <span id="userLoginGroup" class="divlogin" runat="server" >
+        <asp:Label ID="Label1" runat="server" Text="Welcome back: ">
+        </asp:Label><asp:LoginName ID="LoginName1" runat="server" />
+        <asp:LinkButton ID="lbLogOut" runat="server">Log out</asp:LinkButton>
+    </span>
+
     <div id="maincontent">
         <div>
             <div id="nav" class="nav rounded buttons shadows">
@@ -61,6 +68,7 @@
                 </ul>
             </div>
             <div id="content-right" class="main-placeholder">
+
                 <asp:contentplaceholder id="ContentPlaceHolderMain" runat="server"></asp:contentplaceholder> 
             </div>
         </div>

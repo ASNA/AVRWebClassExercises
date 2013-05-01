@@ -1,0 +1,76 @@
+﻿Using System
+Using System.Data
+Using System.Configuration
+Using System.Collections
+Using System.Web
+Using System.Web.Security
+Using System.Web.UI
+Using System.Web.UI.WebControls
+Using System.Web.UI.WebControls.WebParts
+Using System.Web.UI.HtmlControls
+
+BegClass views_UserLogin Partial(*Yes) Access(*Public) Extends(System.Web.UI.Page)
+
+    BegSr Page_Load Access(*Private) Event(*This.Load)
+        DclSrParm sender Type(*Object)
+        DclSrParm e Type(System.EventArgs)
+
+        Page.Title = "User login"
+
+        If (NOT Page.IsPostBack)
+            //
+            // Called the first time that the page is loaded.
+            //
+        Else
+            //
+            // Called subsequent times that the page is displayed.
+            //
+        EndIf
+    EndSr
+
+    BegSr Page_Unload Access(*Private) Event(*This.Unload)
+        DclSrParm sender Type(*Object)
+        DclSrParm e Type(System.EventArgs)
+
+        //
+        // Called when the page is unloaded.
+        //
+    EndSr
+
+	BegSr loginUserLogin_Authenticate Access(*Private) Event(*This.loginUserLogin.Authenticate)
+		DclSrParm sender Type(*Object)
+		DclSrParm e Type(System.Web.UI.WebControls.AuthenticateEventArgs)
+
+        // Don't forget Using System.Web.Security at the top of the page.
+        If ( AuthenticateUser( loginUserLogin.UserName, loginUserLogin.Password ) )
+            FormsAuthentication.RedirectFromLoginPage( loginUserLogin.UserName, loginUserLogin.RememberMeSet ) 
+        EndIf 								
+	EndSr
+
+    BegFunc AuthenticateUser Type( *Boolean ) 
+        DclSrParm UserID   Type( *String  )
+        DclSrParm Password Type( *String  )
+        
+        // In this example, the test to authorize the user profile and password
+        // is hardcoded. In the real world, you'd probably look into a file of 
+        // Web application users. 
+        // 
+        // In rare circumstances you may also want to validate directly against
+        // OS/400 user profiles. To do so here, you could call the QSYGETPH
+        // API to authenticate a userID and password against OS/400. Be aware, though,
+        // that unless your sign-in page is running over HTTPS, you'd be passing
+        // OS/400 user profiles and passwords _in clear text_ accross the Internet! 
+
+        // Check user ID and password--return true if both are true, otherwise 
+        // return false.
+        LeaveSr Value( ( UserID = "godzilla" ) AND ( Password = "mothra" ) )
+        
+        // The above single line is the semantic equivalent to these lines:
+        //        If ( ( UserID = "godzilla" ) AND ( Password = "mothra" ) )
+        //            LeaveSr Value( *True ) 
+        //        Else
+        //            LeaveSr Value( *False ) 
+        //        EndIf
+    EndFunc	
+
+EndClass

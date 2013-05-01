@@ -15,9 +15,14 @@ BegClass Home Partial(*Yes) Access(*Public) Extends(System.Web.UI.MasterPage)
         DclSrParm sender Type(*Object)
         DclSrParm e Type(System.EventArgs)
         
-
-        If (NOT IsPostBack)
-        EndIf
+        userLoginGroup.visible = Page.User.Identity.IsAuthenticated
     EndSr
 
+	BegSr lbLogOut_Click Access(*Private) Event(*This.lbLogOut.Click)
+		DclSrParm sender Type(*Object)
+		DclSrParm e Type(System.EventArgs)
+
+        FormsAuthentication.SignOut()
+        Response.Redirect( "ListCustomers.aspx" ) 				
+	EndSr
 EndClass
