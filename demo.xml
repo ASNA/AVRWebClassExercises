@@ -1,0 +1,15 @@
+<?xml version="1.0" standalone="yes"?>
+<Examples_x002F_CMastNewL1 xmlns="http://www.tempuri.org/Examples%2FCMastNewL1.xsd">
+  <RCMMastL1>
+    <CMCustNo>56300</CMCustNo>
+    <CMName>A Group Co</CMName>
+    <CMAddr1>1625 E Memorial Avenue</CMAddr1>
+    <CMCity>Mountain Home</CMCity>
+    <CMState>AR</CMState>
+    <CMCntry>US</CMCntry>
+    <CMPostCode>72653</CMPostCode>
+    <CMActive>1</CMActive>
+    <CMFax>5135419500</CMFax>
+    <CMPhone>(513) 231-3800</CMPhone>
+  </RCMMastL1>
+</Examples_x002F_CMastNewL1>

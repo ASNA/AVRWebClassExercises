@@ -175,6 +175,10 @@ div#footer {
     float: left;
 }
 
+.float-right {
+    float: right;
+}
+
 .clear-both {
     clear: both;
 }
@@ -189,7 +193,7 @@ div#footer {
     margin-left: 2rem;
 }
 
-.ErrorColor {
+.error-color {
     color: red;
 }
 

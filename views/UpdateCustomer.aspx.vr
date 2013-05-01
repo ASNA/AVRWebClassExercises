@@ -67,13 +67,21 @@ BegClass views_UpdateCustomer Partial(*Yes) Access(*Public) Extends(System.Web.U
         // Get hash value of record buffer.
         DclFld Buffer       Type( *String )
         DclFld HashedBuffer Type( *String ) 
+        DclFld AppDataPath  Type( *String ) 
         
         // Get XML string representing record buffer.
-        Buffer = CustMem.DataSet.GetXML()      
+        Buffer = CustMem.DataSet.GetXML()  
+        
+        // Use this to see the XML generated from the memory file.
+        AppDataPath = Server.MapPath( "/" )
+        CustMem.DataSet.WriteXml( AppDataPath + "demo.xml")
         
         // Hash that value into HashedBuffer. 
         // This transform a record buffer _of any length_ into a unique 40-byte string value.
+
         HashedBuffer = FormsAuthentication.HashPasswordForStoringInConfigFile( Buffer, "sha1" )    
+        // So, you think that method is name is long?
+        // http://bit.ly/102jPnK
         
         LeaveSr Value( HashedBuffer ) 
     EndFunc            

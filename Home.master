@@ -28,7 +28,7 @@
       
     <div id="mainnavbar">
         <span class="hidden">Navigation:</span>
-        <a href="#">Home</a> |
+        <a href="ListCustomers.aspx">Home</a> |
         <a href="#">Products</a> |
         <a href="#">Services</a> |
         <a href="#">Support</a> |
@@ -41,7 +41,7 @@
             <div id="nav" class="nav rounded buttons shadows">
                 <ul>
                     <li>
-                        <a href="#">Item #1 <span class="arrow-right pull-right"></span></a>
+                        <a href="Concurrency.aspx">SHA1 Hashing<span class="arrow-right pull-right"></span></a>                        
                     </li>
                     <li>
                         <a href="#">Item #2 <span class="arrow-right pull-right"></span></a>
